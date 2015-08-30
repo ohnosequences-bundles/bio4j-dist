@@ -12,6 +12,6 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "ohnosequences" %% "statika" % "2.0.0-SNAPSHOT",
-  "ohnosequences" %% "aws-scala-tools" % "0.12.0"
+  "ohnosequences" %% "statika" % "2.0.0-new-instructions-SNAPSHOT",
+  "ohnosequences" %% "aws-scala-tools" % "0.13.2"
 )
