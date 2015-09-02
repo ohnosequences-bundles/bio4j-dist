@@ -1,7 +1,7 @@
 Nice.scalaProject
 
 name := "bio4j-dist"
-organization := "ohnosequencesBundles"
+organization := "ohnosequences-bundles"
 description := "A bundle for the Bio4j distributions"
 
 publishBucketSuffix := "era7.com"
