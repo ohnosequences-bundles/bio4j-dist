@@ -34,6 +34,20 @@ trait AnyBio4jDist extends Bundle() {
   }
 }
 
+case object DefaultConfig {
+
+  def apply(location: File): Configuration = {
+    val base = new BaseConfiguration()
+    base.setProperty("storage.directory", location.getCanonicalPath)
+    base.setProperty("storage.backend", "berkeleyje")
+    base.setProperty("storage.batch-loading", "false")
+    base.setProperty("storage.transactions", "true")
+    base.setProperty("query.fast-property", "false")
+    base.setProperty("schema.default", "none")
+    base
+  }
+}
+
 abstract class Bio4jDist(
   val region: Region,
   val version: String,
@@ -45,21 +59,21 @@ abstract class Bio4jDist(
     s"${dist.version}/${dist.name}"
   )
 
-  lazy val configuration: Configuration = {
-    val base = new BaseConfiguration()
-    base.setProperty("storage.directory", dbLocation.getCanonicalPath)
-    base.setProperty("storage.backend", "berkeleyje")
-    base.setProperty("storage.batch-loading", "false")
-    base.setProperty("storage.transactions", "true")
-    base.setProperty("query.fast-property", "false")
-    base.setProperty("schema.default", "none")
-    base
-  }
+  lazy val configuration: Configuration = DefaultConfig(dbLocation)
 }
 
-  // // the graph; its only (direct) use is for indexes
-  // // FIXME: this works but still with errors, should be fixed (something about transactions)
-  // lazy val graph: TitanNCBITaxonomyGraph =
-  //   new TitanNCBITaxonomyGraph(
-  //     new DefaultTitanGraph(TitanFactory.open(configuration))
-  //   )
+
+// TODO: should it be somewhere else?
+case object bio4jNCBITaxonomy extends AnyBio4jDist {
+
+  lazy val s3folder: S3Folder = S3Folder("resources.ohnosequences.com", "16s/bio4j")
+
+  lazy val configuration: Configuration = DefaultConfig(dbLocation)
+
+  // the graph; its only (direct) use is for indexes
+  // FIXME: this works but still with errors, should be fixed (something about transactions)
+  lazy val graph: TitanNCBITaxonomyGraph =
+    new TitanNCBITaxonomyGraph(
+      new DefaultTitanGraph(TitanFactory.open(configuration))
+    )
+}
