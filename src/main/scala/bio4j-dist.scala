@@ -34,7 +34,7 @@ trait AnyBio4jDist extends Bundle() {
   }
 }
 
-case object DefaultConfig {
+case object DefaultBio4jTitanConfig {
 
   def apply(location: File): Configuration = {
     val base = new BaseConfiguration()
@@ -59,21 +59,20 @@ abstract class Bio4jDist(
     s"${dist.version}/${dist.name}"
   )
 
-  lazy val configuration: Configuration = DefaultConfig(dbLocation)
+  lazy val configuration: Configuration = DefaultBio4jTitanConfig(dbLocation)
 }
 
 
-// TODO: should it be somewhere else?
-case object bio4jNCBITaxonomy extends AnyBio4jDist {
+abstract class Bio4jLiteDist(
+  region: Region,
+  version: String
+) extends Bio4jDist(region, version, "bio4j_all_but_uniref_and_gi_index") {
 
-  lazy val s3folder: S3Folder = S3Folder("resources.ohnosequences.com", "16s/bio4j")
-
-  lazy val configuration: Configuration = DefaultConfig(dbLocation)
-
-  // the graph; its only (direct) use is for indexes
-  // FIXME: this works but still with errors, should be fixed (something about transactions)
-  lazy val graph: TitanNCBITaxonomyGraph =
-    new TitanNCBITaxonomyGraph(
-      new DefaultTitanGraph(TitanFactory.open(configuration))
-    )
+  // TODO: many graphs here?
+  // lazy val graph: TitanNCBITaxonomyGraph =
+  //   new TitanNCBITaxonomyGraph(
+  //     new DefaultTitanGraph(TitanFactory.open(configuration))
+  //   )
 }
+
+// TODO: prepare full dist
