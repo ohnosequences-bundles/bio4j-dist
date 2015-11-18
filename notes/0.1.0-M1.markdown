@@ -1,0 +1,1 @@
+This is a pre-release. It provides abstract classes for creating Bio4j distribution bundles and a default config for it.
