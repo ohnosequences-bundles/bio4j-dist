@@ -1,0 +1,1 @@
+This is milestone updates aws-scala-tools to the 0.16.0 version.

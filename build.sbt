@@ -13,7 +13,7 @@ resolvers ++= Seq(
 
 libraryDependencies ++= Seq(
   "ohnosequences" %% "statika"         %  "2.0.0-M4",
-  "ohnosequences" %% "aws-scala-tools" %  "0.15.0-M1",
+  "ohnosequences" %% "aws-scala-tools" %  "0.16.0",
   "bio4j"         %  "bio4j"           %  "0.12.0-RC3",
   "bio4j"         %  "bio4j-titan"     %  "0.4.0-RC3"
 )
