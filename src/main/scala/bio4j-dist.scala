@@ -1,6 +1,6 @@
 package ohnosequencesBundles.statika
 
-import ohnosequences.statika._, bundles._, instructions._
+import ohnosequences.statika._
 import ohnosequences.awstools._, s3._, regions._
 
 import com.amazonaws.auth._
