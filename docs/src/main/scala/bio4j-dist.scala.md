@@ -58,8 +58,8 @@ abstract class Bio4jDist(
 
   lazy val s3folder: S3Folder = S3Folder(
     s"${dist.region}.releases.bio4j.com",
-    s"${dist.version}/${dist.name}"
-  )
+    dist.version
+  ) / dist.name /
 
   lazy val configuration: Configuration = DefaultBio4jTitanConfig(dbLocation)
 }
@@ -77,7 +77,11 @@ abstract class Bio4jLiteDist(
   //   )
 }
 
-// TODO: prepare full dist
+
+abstract class Bio4jFullDist(
+  region: Region,
+  version: String
+) extends Bio4jDist(region, version, "bio4j_all_plus_isoforms")
 
 ```
 
