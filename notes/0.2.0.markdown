@@ -1,0 +1,1 @@
+This release is based on Bio4j-0.12 and Bio4j-Titan-0.4 and includes the full Bio4j distribution (see #2).
