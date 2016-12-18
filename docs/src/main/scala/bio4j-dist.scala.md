@@ -27,11 +27,11 @@ trait AnyBio4jDist extends Bundle() {
 
   def instructions: AnyInstructions = LazyTry {
     println(s"""Dowloading
-      |from: ${s3folder.url}
+      |from: ${s3folder}
       |to: ${destination.getCanonicalPath}
       |""".stripMargin)
 
-    val transferManager = new TransferManager(new InstanceProfileCredentialsProvider())
+    val transferManager = new TransferManager(new DefaultAWSCredentialsProviderChain())
     transferManager.downloadDirectory(s3folder.bucket, s3folder.key, destination).waitForCompletion
   }
 }
