@@ -4,6 +4,8 @@ description := "A bundle for the Bio4j distributions"
 
 publishBucketSuffix := "era7.com"
 
+releaseOnlyTestTag := "ohnosequencesBundles.test.ReleaseOnlyTest"
+
 resolvers ++= Seq(
   "Era7 public maven releases" at s3("releases.era7.com").toHttps(s3region.value.toString)
 )
