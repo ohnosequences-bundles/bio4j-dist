@@ -2,17 +2,9 @@ package ohnosequencesBundles.statika
 
 import ohnosequences.statika._
 import ohnosequences.awstools._, s3._, regions._
-
-import com.amazonaws.auth._
-import com.amazonaws.services.s3.transfer._
-
-import java.io.File
-
-import com.thinkaurelius.titan.core._
-import com.bio4j.titan.model.ncbiTaxonomy._
-import com.bio4j.titan.util.DefaultTitanGraph
 import org.apache.commons.configuration.Configuration
 import org.apache.commons.configuration.BaseConfiguration
+import java.io.File
 
 
 trait AnyBio4jDist extends Bundle() {
@@ -29,8 +21,9 @@ trait AnyBio4jDist extends Bundle() {
       |to: ${destination.getCanonicalPath}
       |""".stripMargin)
 
-    val transferManager = new TransferManager(new DefaultAWSCredentialsProviderChain())
-    transferManager.downloadDirectory(s3folder.bucket, s3folder.key, destination).waitForCompletion
+    s3.defaultClient.withTransferManager { tm =>
+      tm.download(s3folder, destination)
+    }
   }
 }
 
